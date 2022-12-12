@@ -1,9 +1,15 @@
 cmake_minimum_required(VERSION 3.15 FATAL_ERROR)
 project(RayTracer LANGUAGES CXX C)
 
-if(NOT CMAKE_BUILD_TYPE)
+option(BUILD_RELEASE "CMake build type: Release" ON)
+if(BUILD_RELEASE)
     set(CMAKE_BUILD_TYPE Release)
-endif()
+    message(STATUS "CMake build type: Release")
+else()
+    set(CMAKE_BUILD_TYPE Debug)
+    message(STATUS "CMake build type: Debug")
+endif ()
+
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS ON)
