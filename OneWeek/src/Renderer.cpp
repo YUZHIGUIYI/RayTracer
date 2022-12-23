@@ -17,28 +17,31 @@ namespace OneWeek
     Renderer::Renderer(int width, int height, int samples) : image_width(width), image_height(height), samples_per_pixel(samples),
         thread_num(1), image_size(width * height), max_depth(50), aspect_ratio(double(width) / double(height)), speed_of_progress(0)
     {
-        // old camera - for first, second, third scene
+        // camera - for first, second, third scene
         // vec3 lookfrom(13.0, 2.0, 3.0);
         // vec3 lookat(0.0, 0.0, 0.0);
         // vec3 vup(0.0, 1.0, 0.0);
         // double dist_to_focus = 10.0;
         // double aperture  = 0.0;
-        // new camera - for fourth scenes
+
+        // camera - for fourth scenes
         // vec3 lookfrom(26.0, 3.0, 6.0);
         // vec3 lookat(0.0, 2.0, 0.0);
         // vec3 vup(0.0, 1.0, 0.0);
         // double dist_to_focus = 10.0;
         // double aperture  = 0.0;
         // double vfov = 20.0;
-        // new camera - for cornell box
+
+        // camera - for cornell box
         //vec3 lookfrom(278.0, 278.0, -800.0);
         //vec3 lookat(278.0, 278.0, 0.0);
         //vec3 vup(0.0, 1.0, 0.0);
         //double dist_to_focus = 10.0;
         //double aperture  = 0.0;
         //double vfov = 40.0;
-        // for final scene
-        vec3 lookfrom(478.0, 278.0, -600.0);
+
+        // camera - for final scene
+        vec3 lookfrom(478.0, 278.0, -700.0);
         vec3 lookat(278.0, 278.0, 0.0);
         vec3 vup(0.0, 1.0, 0.0);
         double dist_to_focus = 10.0;
@@ -47,6 +50,7 @@ namespace OneWeek
 
         cam = std::make_unique<camera>(lookfrom, lookat, vup, vfov, aspect_ratio, aperture, dist_to_focus, 0.0, 1.0);
         world = std::make_unique<hittable_list>();
+
         //world->random_scene();    // random number of spheres
         //world->two_perlin_spheres();    // two spheres
         //world->earth();   // one sphere with earth texture

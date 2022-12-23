@@ -216,13 +216,14 @@ namespace OneWeek
 
         auto ground = make_shared<lambertian>(make_shared<constant_texture>(vec3(0.48, 0.83, 0.53)));
 
+        // generate random ground floor
         const int boxes_per_side = 20;
         for (int i = 0; i < boxes_per_side; ++i)
         {
             for (int j = 0; j < boxes_per_side; ++j)
             {
                 auto w = 100.0;
-                auto x0 = -1000.0 + j * w;
+                auto x0 = -1000.0 + i * w;
                 auto z0 = -1000.0 + j * w;
                 auto y0 = 0.0;
                 auto x1 = x0 + w;
@@ -240,34 +241,45 @@ namespace OneWeek
         auto light = make_shared<diffuse_light>(make_shared<constant_texture>(vec3(7.0, 7.0, 7.0)));
         add(make_shared<xz_rect>(123, 423, 147, 412, 554, light));
 
+        // add brown blurry(moving) sphere
         auto center1 = vec3(400, 400, 200);
         auto center2 = center1 + vec3(30, 0, 0);
         auto moving_sphere_material =
                 make_shared<lambertian>(make_shared<constant_texture>(vec3(0.7, 0.3, 0.1)));
         add(make_shared<moving_sphere>(center1, center2, 0, 1, 50, moving_sphere_material));
 
+        // add glass sphere
         add(make_shared<sphere>(vec3(260, 150, 45), 50, make_shared<dielectric>(1.5)));
+
+        // add silvery sphere
         add(make_shared<sphere>(
                 vec3(0, 150, 145), 50, make_shared<metal>(vec3(0.8, 0.8, 0.9), 10.0)
                 ));
 
+        // add blue glass sphere
         auto boundary = make_shared<sphere>(vec3(360, 150, 145), 70, make_shared<dielectric>(1.5));
         add(boundary);
         add(make_shared<constant_medium>(
                 boundary, 0.2, make_shared<constant_texture>(vec3(0.2, 0.4, 0.9))
                 ));
+
+        // add fog
         boundary = make_shared<sphere>(vec3(0.0, 0.0, 0.0), 5000, make_shared<dielectric>(1.5));
         add(make_shared<constant_medium>(
                 boundary, 0.0001, make_shared<constant_texture>(vec3(1, 1, 1))
                 ));
 
+        // add earth sphere
         int nx, ny, nn;
         auto tex_data = stbi_load("texture/earthmap.jpg", &nx, &ny, &nn, 0);
         auto emat = make_shared<lambertian>(make_shared<image_texture>(tex_data, nx, ny));
         add(make_shared<sphere>(vec3(400, 200, 400), 100, emat));
-        auto pertext = make_shared<noise_texture>(0.1);
+
+        // add perlin marbled sphere
+        auto pertext = make_shared<noise_texture>(2.0);
         add(make_shared<sphere>(vec3(220, 280, 300), 80, make_shared<lambertian>(pertext)));
 
+        // add cube made of random spheres
         auto white = make_shared<lambertian>(make_shared<constant_texture>(vec3(0.73, 0.73, 0.73)));
         int ns = 1000;
         static std::vector<std::shared_ptr<hittable>> boxes2;

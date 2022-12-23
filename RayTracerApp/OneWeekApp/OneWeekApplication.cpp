@@ -8,7 +8,7 @@
 
 int main(int argc, char* argv[])
 {
-    OneWeek::Renderer renderer(1000, 1000, 600);
+    OneWeek::Renderer renderer(600, 600, 6000);
     if (argc < 2)
     {
         std::cerr << "Default Renderer\n";

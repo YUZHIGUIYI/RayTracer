@@ -87,13 +87,14 @@ namespace OneWeek
         hittable_list boxes1;
         auto ground = make_shared<lambertian>(make_shared<constant_texture>(vec3(0.48, 0.83, 0.53)));
 
+        // TODO: has to fix
         const int boxes_per_side = 20;
         for (int i = 0; i < boxes_per_side; ++i)
         {
             for (int j = 0; j < boxes_per_side; ++j)
             {
                 auto w = 100.0;
-                auto x0 = -1000.0 + j * w;
+                auto x0 = -1000.0 + i * w;
                 auto z0 = -1000.0 + j * w;
                 auto y0 = 0.0;
                 auto x1 = x0 + w;
@@ -105,7 +106,7 @@ namespace OneWeek
         }
 
         // hittable_list
-        std:;shared_ptr<hittable_list> object_list = std::make_shared<hittable_list>();
+        std::shared_ptr<hittable_list> object_list = std::make_shared<hittable_list>();
 
         // add bvh_node
         auto node1 = make_shared<bvh_node>(boxes1, 0, 1);
