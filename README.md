@@ -23,8 +23,8 @@
 ## Usage
 ### OneWeekendApplication
 ```shell
-cmake -D CMAKE_BUILD_TYPE=Release --build build 
 cmake -B build
+cmake --build build 
 cd bin
 # single-threading render
 ./OneWeekendApplication.exe > image.ppm 
@@ -33,11 +33,19 @@ cd bin
 ```
 ### OneWeekApplication
 ```shell
-cmake -D CMAKE_BUILD_TYPE=Release --build build 
+# select default rendering scene
 cmake -B build
+# select other rendering scenes
+# general scene
+#cmake -D GENERAL_OPTION=ON -B build
+# cornell box 
+#cmake -D CORNELL_OPTION=ON -B build
+# cornell box with volumes
+#cmake -D VOLUMES_OPTION=ON -B build
+cmake --build build 
 cd bin
-# single-threading render
+# select single-threading render
 ./OneWeekApplication.exe > image.ppm 
-# multithreading render by input number of threads as you wish
+# select multithreading render by input number of threads as you wish
 ./OneWeekApplication.exe number > image.ppm
 ```
